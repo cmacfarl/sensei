@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light-blue Material 3 palette. Dark variant in values-night. -->
+    <style name="Theme.Sensei" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#2D6A9F</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">#D3E7FA</item>
+        <item name="colorOnPrimaryContainer">#00213A</item>
+        <item name="colorSecondary">#4F6072</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#DCE8F5</item>
+        <item name="colorOnSecondaryContainer">#0C1D2B</item>
+        <item name="colorTertiary">#3B6A80</item>
+        <item name="colorOnTertiary">#FFFFFF</item>
+        <item name="colorTertiaryContainer">#C4E9FB</item>
+        <item name="colorOnTertiaryContainer">#001F2A</item>
+        <item name="android:colorBackground">#F7FAFE</item>
+        <item name="colorOnBackground">#181C20</item>
+        <item name="colorSurface">#F7FAFE</item>
+        <item name="colorOnSurface">#181C20</item>
+        <item name="colorSurfaceVariant">#DEE4EC</item>
+        <item name="colorOnSurfaceVariant">#424850</item>
+        <item name="colorSurfaceContainerLowest">#FFFFFF</item>
+        <item name="colorSurfaceContainerLow">#F1F5FA</item>
+        <item name="colorSurfaceContainer">#EBF0F6</item>
+        <item name="colorSurfaceContainerHigh">#E5EAF0</item>
+        <item name="colorSurfaceContainerHighest">#DFE4EA</item>
+        <item name="colorOutline">#727880</item>
+        <item name="colorOutlineVariant">#C2C8D0</item>
+    </style>
+
+    <!-- A Japanese sentence: large enough that furigana (half size) stays readable. -->
+    <style name="TextAppearance.Sensei.Japanese" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textSize">22sp</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+    </style>
+
+    <!-- Notes, comments and follow-up answers: a step up from body text so their furigana is legible. -->
+    <style name="TextAppearance.Sensei.Note" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextAppearance.Sensei.JapaneseChunk" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">19sp</item>
+    </style>
+</resources>

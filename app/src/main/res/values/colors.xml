@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="launcher_background">#3F87C4</color>
+    <color name="label_text">#5A6672</color>
+    <color name="accent_text">#2D6A9F</color>
+    <color name="chunk_fill">#EAF2FB</color>
+    <color name="divider">#33000000</color>
+    <color name="verdict_correct">#2E7D32</color>
+    <color name="verdict_unnatural">#B26A00</color>
+    <color name="verdict_incorrect">#C62828</color>
+    <color name="romaji_highlight">#66FFC107</color>
+</resources>

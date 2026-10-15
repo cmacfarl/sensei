@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sensei</string>
+
+    <string name="empty_state">Type an English sentence to see it in Japanese, or a Japanese sentence to have it checked.</string>
+    <string name="hint_new_sentence">English or Japanese sentence</string>
+    <string name="hint_follow_up">Ask a follow-up…</string>
+    <string name="send">Send</string>
+    <string name="thinking">Thinking…</string>
+    <string name="retry">Retry</string>
+    <string name="back">Back</string>
+    <string name="copied">Copied</string>
+
+    <string name="action_new_sentence">New sentence</string>
+    <string name="action_furigana_hide">Hide furigana</string>
+    <string name="action_furigana_show">Show furigana</string>
+    <string name="action_known_kanji">Known kanji</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="label_polite">POLITE</string>
+    <string name="label_casual">CASUAL</string>
+    <string name="label_grammar">Grammar</string>
+    <string name="label_notes">Notes</string>
+    <string name="label_your_sentence">YOUR SENTENCE</string>
+    <string name="label_issues">What to fix</string>
+    <string name="label_corrected">CORRECTED</string>
+    <string name="label_natural">How a native speaker would say it</string>
+    <string name="label_examples">Examples</string>
+
+    <string name="verdict_correct">✓ Correct</string>
+    <string name="verdict_unnatural">△ Grammatical, but unnatural</string>
+    <string name="verdict_incorrect">✗ Needs fixing</string>
+
+    <string name="romaji_warning">Romaji was still present after %1$d rewrite requests. It is highlighted below.</string>
+
+    <string name="mark_known_title">Kanji you know in %1$s</string>
+    <string name="known_kanji_help">Furigana is hidden on words whose kanji are all in this list. Add or delete kanji freely; anything that isn\'t a kanji is ignored. Tip: long-press a word in a reply to mark its kanji.</string>
+    <plurals name="known_count">
+        <item quantity="one">%1$d kanji</item>
+        <item quantity="other">%1$d kanji</item>
+    </plurals>
+    <string name="save">Save</string>
+    <string name="reset">Reset to N5 + N4</string>
+    <string name="reset_confirm">Replace your list with the starter N5 + N4 kanji?</string>
+
+    <!-- Settings -->
+    <string name="pref_provider">AI provider</string>
+    <string name="pref_provider_note">A thread keeps the provider it started with. Changes apply from the next new sentence.</string>
+    <string name="pref_gemini">Gemini</string>
+    <string name="pref_claude">Claude</string>
+    <string name="pref_api_key">API key</string>
+    <string name="pref_model">Model</string>
+    <string name="pref_gemini_key_help">Create a key at aistudio.google.com.</string>
+    <string name="pref_claude_key_help">Create a key in the Claude Console (API keys page).</string>
+    <string name="pref_claude_model_help">claude-opus-5-5 (best), claude-sonnet-5-5 (cheaper), claude-haiku-5-5 (cheapest)</string>
+    <string name="pref_gemini_model_help">e.g. gemini-3.8-flash, gemini-3.5-flash-lite, gemini-3.1-pro-preview</string>
+    <string name="pref_thinking">Thinking level</string>
+    <string name="thinking_low">Low (fastest)</string>
+    <string name="thinking_medium">Medium</string>
+    <string name="thinking_high">High (most careful, slowest)</string>
+    <string name="key_set">Set</string>
+    <string name="key_not_set">Not set</string>
+    <string name="key_built_in">Using the key from local.properties (debug build). Enter one here to override.</string>
+</resources>

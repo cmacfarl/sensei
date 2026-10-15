@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListPreference
+        app:defaultValue="gemini"
+        app:entries="@array/provider_names"
+        app:entryValues="@array/provider_values"
+        app:key="provider"
+        app:title="@string/pref_provider"
+        app:useSimpleSummaryProvider="true" />
+
+    <Preference
+        app:selectable="false"
+        app:summary="@string/pref_provider_note" />
+
+    <PreferenceCategory app:title="@string/pref_gemini">
+        <EditTextPreference
+            app:dialogMessage="@string/pref_gemini_key_help"
+            app:key="gemini_api_key"
+            app:title="@string/pref_api_key" />
+        <EditTextPreference
+            app:defaultValue="gemini-3.8-flash"
+            app:dialogMessage="@string/pref_gemini_model_help"
+            app:key="gemini_model"
+            app:title="@string/pref_model"
+            app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            app:defaultValue="medium"
+            app:entries="@array/thinking_names"
+            app:entryValues="@array/thinking_values"
+            app:key="gemini_thinking"
+            app:title="@string/pref_thinking"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pref_claude">
+        <EditTextPreference
+            app:dialogMessage="@string/pref_claude_key_help"
+            app:key="claude_api_key"
+            app:title="@string/pref_api_key" />
+        <EditTextPreference
+            app:defaultValue="claude-opus-5-5"
+            app:dialogMessage="@string/pref_claude_model_help"
+            app:key="claude_model"
+            app:title="@string/pref_model"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+</PreferenceScreen>

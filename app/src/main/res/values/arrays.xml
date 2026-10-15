@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="provider_names">
+        <item>@string/pref_gemini</item>
+        <item>@string/pref_claude</item>
+    </string-array>
+    <string-array name="provider_values" translatable="false">
+        <item>gemini</item>
+        <item>claude</item>
+    </string-array>
+    <string-array name="thinking_names">
+        <item>@string/thinking_low</item>
+        <item>@string/thinking_medium</item>
+        <item>@string/thinking_high</item>
+    </string-array>
+    <string-array name="thinking_values" translatable="false">
+        <item>low</item>
+        <item>medium</item>
+        <item>high</item>
+    </string-array>
+</resources>

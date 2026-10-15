@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="label_text">#A9B5C1</color>
+    <color name="accent_text">#9ECAF5</color>
+    <color name="chunk_fill">#1C2733</color>
+    <color name="divider">#33FFFFFF</color>
+    <color name="verdict_correct">#81C784</color>
+    <color name="verdict_unnatural">#FFB74D</color>
+    <color name="verdict_incorrect">#EF9A9A</color>
+    <color name="romaji_highlight">#66FFC107</color>
+</resources>

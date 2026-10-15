@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_furigana"
+        android:icon="@drawable/ic_furigana_on"
+        android:title="@string/action_furigana_hide"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_new"
+        android:icon="@drawable/ic_new_sentence"
+        android:title="@string/action_new_sentence"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_known_kanji"
+        android:title="@string/action_known_kanji"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+</menu>

@@ -1,0 +1,73 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+// API keys for debug builds come from local.properties (git-ignored), e.g.
+//   gemini.api.key=AIza...
+//   claude.api.key=sk-ant-...
+// Missing entries become empty strings, and release builds never include them.
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { localProperties.load(it) }
+}
+
+static String javaString(String value) {
+    return '"' + (value ?: '').trim().replace('\\', '\\\\').replace('"', '\\"') + '"'
+}
+
+android {
+    namespace 'com.cmacfarl.sensei'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'com.cmacfarl.sensei'
+        minSdk 26
+        targetSdk 36
+        versionCode 1
+        versionName '0.1.0'
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField 'String', 'GEMINI_API_KEY', javaString(localProperties.getProperty('gemini.api.key'))
+            buildConfigField 'String', 'CLAUDE_API_KEY', javaString(localProperties.getProperty('claude.api.key'))
+        }
+        release {
+            buildConfigField 'String', 'GEMINI_API_KEY', '""'
+            buildConfigField 'String', 'CLAUDE_API_KEY', '""'
+            // Left off for now: the Anthropic SDK uses Jackson reflection, which R8 would need rules for.
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    packaging {
+        resources {
+            excludes += ['META-INF/versions/9/OSGI-INF/MANIFEST.MF', 'META-INF/DEPENDENCIES',
+                         'META-INF/LICENSE*', 'META-INF/NOTICE*']
+        }
+    }
+}
+
+dependencies {
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.recyclerview
+    implementation libs.lifecycle.viewmodel
+    implementation libs.lifecycle.livedata
+    implementation libs.preference
+    implementation libs.gson
+    implementation libs.okhttp
+    implementation libs.anthropic
+
+    testImplementation libs.junit
+}
