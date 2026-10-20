@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Body of the long-press dialog: one checkbox per kanji, then Jisho / Cancel + OK. -->
+<!-- Body of the long-press dialog: one checkbox per kanji, then Jisho + jpdb / Cancel + OK. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -15,15 +15,34 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/jisho"
-        style="@style/Widget.Material3.Button.TonalButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:contentDescription="@string/look_up_jisho_description"
-        android:text="@string/look_up_jisho"
-        app:cornerRadius="10dp" />
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/jisho"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/look_up_jisho_description"
+            android:text="@string/look_up_jisho"
+            app:cornerRadius="10dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/jpdb"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/look_up_jpdb_description"
+            android:text="@string/look_up_jpdb"
+            app:cornerRadius="10dp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

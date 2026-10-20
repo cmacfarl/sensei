@@ -36,7 +36,9 @@
     <string name="mark_known_title">Kanji you know in %1$s</string>
     <string name="look_up_jisho">Jisho</string>
     <string name="look_up_jisho_description">Look up this word on jisho.org</string>
-    <string name="no_browser">No browser found to open jisho.org.</string>
+    <string name="look_up_jpdb">jpdb</string>
+    <string name="look_up_jpdb_description">Look up this word on jpdb.io</string>
+    <string name="no_browser">No browser found to open the dictionary.</string>
     <string name="known_kanji_help">Furigana is hidden on words whose kanji are all in this list. Add or delete kanji freely; anything that isn\'t a kanji is ignored. Tip: long-press a word in a reply to mark its kanji.</string>
     <plurals name="known_count">
         <item quantity="one">%1$d kanji</item>

@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements ChatAdapter.Actio
         startActivity(new Intent(this, SettingsActivity.class));
     }
 
-    /** Lets the student tick which kanji of a word they know, or look the word up on jisho.org. */
+    /** Lets the student tick which kanji of a word they know, or look the word up on jisho.org or jpdb.io. */
     @Override
     public void kanjiWordLongPressed(String word, String lookup) {
         List<Integer> kanji = new ArrayList<>();
@@ -227,10 +227,15 @@ public class MainActivity extends AppCompatActivity implements ChatAdapter.Actio
                 .setTitle(getString(R.string.mark_known_title, word))
                 .setView(body)
                 .create();
-        // Closes the dialog (like Cancel) so Back from the browser returns straight to the reply.
+        // Lookups close the dialog (like Cancel) so Back from the browser returns straight to the reply.
         body.findViewById(R.id.jisho).setOnClickListener(v -> {
             dialog.dismiss();
-            openJisho(lookup);
+            openDictionary("https://jisho.org/search/" + Uri.encode(lookup));
+        });
+        // jpdb deconjugates better than jisho (行った → 行く, where jisho guesses 行う).
+        body.findViewById(R.id.jpdb).setOnClickListener(v -> {
+            dialog.dismiss();
+            openDictionary("https://jpdb.io/search?q=" + Uri.encode(lookup));
         });
         body.findViewById(R.id.cancel).setOnClickListener(v -> dialog.dismiss());
         body.findViewById(R.id.ok).setOnClickListener(v -> {
@@ -241,10 +246,9 @@ public class MainActivity extends AppCompatActivity implements ChatAdapter.Actio
         dialog.show();
     }
 
-    private void openJisho(String query) {
-        Uri uri = Uri.parse("https://jisho.org/search/" + Uri.encode(query));
+    private void openDictionary(String url) {
         try {
-            startActivity(new Intent(Intent.ACTION_VIEW, uri));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         } catch (ActivityNotFoundException e) {
             Toast.makeText(this, R.string.no_browser, Toast.LENGTH_SHORT).show();
         }
