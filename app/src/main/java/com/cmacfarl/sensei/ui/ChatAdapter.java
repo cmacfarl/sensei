@@ -29,7 +29,7 @@ final class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         void openSettings();
 
-        void kanjiWordLongPressed(String word);
+        void kanjiWordLongPressed(String word, String lookup);
     }
 
     private final List<ChatItem> items = new ArrayList<>();
