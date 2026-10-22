@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.cmacfarl.sensei.text.DictionaryLookup;
 import com.cmacfarl.sensei.text.JapaneseChars;
 
 /**
@@ -26,7 +27,11 @@ import com.cmacfarl.sensei.text.JapaneseChars;
 public class RubyTextView extends AppCompatTextView {
 
     public interface OnKanjiWordLongPress {
-        void onKanjiWordLongPress(String word);
+        /**
+         * @param word   the kanji the reading belongs to, e.g. 食
+         * @param lookup the word as it appears with following hiragana, e.g. 食べる, for dictionary lookup
+         */
+        void onKanjiWordLongPress(String word, String lookup);
     }
 
     private OnKanjiWordLongPress listener;
@@ -59,10 +64,12 @@ public class RubyTextView extends AppCompatTextView {
 
             @Override
             public void onLongPress(@NonNull MotionEvent e) {
-                String word = kanjiWordAt(e.getX(), e.getY());
-                if (word != null && listener != null) {
+                int[] range = kanjiWordAt(e.getX(), e.getY());
+                if (range != null && listener != null) {
                     performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS);
-                    listener.onKanjiWordLongPress(word);
+                    String text = getText().toString();
+                    listener.onKanjiWordLongPress(text.substring(range[0], range[1]),
+                            DictionaryLookup.forWord(text, range[0], range[1]));
                 }
             }
         });
@@ -88,8 +95,8 @@ public class RubyTextView extends AppCompatTextView {
         return super.onTouchEvent(event) || handled;
     }
 
-    /** The ruby word, or run of kanji, under the given point; null if there's no kanji there. */
-    private String kanjiWordAt(float x, float y) {
+    /** Start and end of the ruby word, or run of kanji, under the point; null if there's no kanji there. */
+    private int[] kanjiWordAt(float x, float y) {
         CharSequence text = getText();
         if (getLayout() == null || text.length() == 0) return null;
         int offset = getOffsetForPosition(x, y);
@@ -98,9 +105,9 @@ public class RubyTextView extends AppCompatTextView {
             for (int probe : new int[]{offset, offset - 1}) {
                 if (probe < 0) continue;
                 for (RubySpan span : spanned.getSpans(probe, probe + 1, RubySpan.class)) {
-                    if (spanned.getSpanStart(span) <= probe && probe < spanned.getSpanEnd(span)) {
-                        return span.base;
-                    }
+                    int start = spanned.getSpanStart(span);
+                    int end = spanned.getSpanEnd(span);
+                    if (start <= probe && probe < end) return new int[]{start, end};
                 }
             }
         }
@@ -116,7 +123,7 @@ public class RubyTextView extends AppCompatTextView {
             while (end < s.length() && JapaneseChars.isKanjiLike(s.codePointAt(end))) {
                 end += Character.charCount(s.codePointAt(end));
             }
-            return s.substring(start, end);
+            return new int[]{start, end};
         }
         return null;
     }

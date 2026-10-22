@@ -1,6 +1,8 @@
 package com.cmacfarl.sensei.ui;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,6 +10,14 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.util.TypedValue;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+
+import com.google.android.material.checkbox.MaterialCheckBox;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -190,9 +200,9 @@ public class MainActivity extends AppCompatActivity implements ChatAdapter.Actio
         startActivity(new Intent(this, SettingsActivity.class));
     }
 
-    /** Lets the student tick which kanji of a word they know. */
+    /** Lets the student tick which kanji of a word they know, or look the word up on jisho.org or jpdb.io. */
     @Override
-    public void kanjiWordLongPressed(String word) {
+    public void kanjiWordLongPressed(String word, String lookup) {
         List<Integer> kanji = new ArrayList<>();
         for (int i = 0; i < word.length(); ) {
             int c = word.codePointAt(i);
@@ -201,20 +211,46 @@ public class MainActivity extends AppCompatActivity implements ChatAdapter.Actio
         }
         if (kanji.isEmpty()) return;
 
-        String[] labels = new String[kanji.size()];
-        boolean[] checked = new boolean[kanji.size()];
-        for (int i = 0; i < kanji.size(); i++) {
-            labels[i] = new String(Character.toChars(kanji.get(i)));
-            checked[i] = known.isKnown(kanji.get(i));
+        View body = getLayoutInflater().inflate(R.layout.dialog_kanji_word, null);
+        LinearLayout checks = body.findViewById(R.id.checks);
+        List<MaterialCheckBox> boxes = new ArrayList<>();
+        for (int c : kanji) {
+            MaterialCheckBox box = new MaterialCheckBox(this);
+            box.setText(new String(Character.toChars(c)));
+            box.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+            box.setChecked(known.isKnown(c));
+            checks.addView(box);
+            boxes.add(box);
         }
-        new MaterialAlertDialogBuilder(this)
+
+        AlertDialog dialog = new MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.mark_known_title, word))
-                .setMultiChoiceItems(labels, checked, (d, which, isChecked) -> checked[which] = isChecked)
-                .setPositiveButton(android.R.string.ok, (d, w) -> {
-                    for (int i = 0; i < kanji.size(); i++) known.setKnown(kanji.get(i), checked[i]);
-                    viewModel.refresh();
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
+                .setView(body)
+                .create();
+        // Lookups close the dialog (like Cancel) so Back from the browser returns straight to the reply.
+        body.findViewById(R.id.jisho).setOnClickListener(v -> {
+            dialog.dismiss();
+            openDictionary("https://jisho.org/search/" + Uri.encode(lookup));
+        });
+        // jpdb deconjugates better than jisho (行った → 行く, where jisho guesses 行う).
+        body.findViewById(R.id.jpdb).setOnClickListener(v -> {
+            dialog.dismiss();
+            openDictionary("https://jpdb.io/search?q=" + Uri.encode(lookup));
+        });
+        body.findViewById(R.id.cancel).setOnClickListener(v -> dialog.dismiss());
+        body.findViewById(R.id.ok).setOnClickListener(v -> {
+            for (int i = 0; i < kanji.size(); i++) known.setKnown(kanji.get(i), boxes.get(i).isChecked());
+            viewModel.refresh();
+            dialog.dismiss();
+        });
+        dialog.show();
+    }
+
+    private void openDictionary(String url) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, R.string.no_browser, Toast.LENGTH_SHORT).show();
+        }
     }
 }
